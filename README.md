@@ -35,6 +35,18 @@ You will:
 - 🔍 **Analyze error messages and the call stack** for clues
 - 🧪 **Test edge cases** to make sure the program behaves correctly in different scenarios
 
+
+Errors Found:
+1. Loop condition caused undefined item access. Fixed by using i < cartItems.length.
+2. 2. Discount rate had no validation. Added range check for 0–1.
+3. total.toFixed() threw error when total wasn’t numeric. Added type check.
+4. DOM elements could be null. Added conditional element check.
+
+ Debugging Tools Used: 
+ - Console tab: Found "Cannot read properties of undefined" error.
+- Sources tab: Used breakpoints to watch variable values in calculateTotal().
+- Call Stack: Traced flow from generateReceipt() back to applyDiscount().
+- Debugger statement: Used to pause loop and check cartItems[i].
 ---
 
 ## 🖥️ Instructions
