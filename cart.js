@@ -6,14 +6,21 @@ const cart = [
 
 function calculateTotal(cartItems) {
   let total = 0;
-  for (let i = 0; i <= cartItems.length; i++) { // Bug: <= should be <
+  for (let i = 0; i < cartItems.length; i++) { // Bug: <= should be <
       total += cartItems[i].price; // Bug: cartItems[i] is undefined on the last iteration
   }
   return total;
 }
 
-function applyDiscount(total, discountRate) {
+/*function applyDiscount(total, discountRate) {
   return total - total * discountRate; // Bug: Missing validation for discountRate
+}*/
+function applyDiscount(total, discountRate) {
+  if (typeof discountRate !== "number" || discountRate < 0 || discountRate > 1) {
+    console.warn("Invalid discount rate. No discount applied.");
+    return total;
+  }
+  return total - total * discountRate;
 }
 
 function generateReceipt(cartItems, total) {
@@ -31,5 +38,9 @@ const total = calculateTotal(cart);
 const discountedTotal = applyDiscount(total, 0.2); // 20% discount
 const receipt = generateReceipt(cart, discountedTotal);
 
-document.getElementById("total").textContent = `Total: $${discountedTotal}`;
-document.getElementById("receipt").textContent = receipt;
+const totalElement = document.getElementById("total");
+const receiptElement = document.getElementById("receipt");
+if (totalElement && receiptElement) {
+  totalElement.textContent = `Total: $${discountedTotal.toFixed(2)}`;
+  receiptElement.textContent = receipt;
+}
